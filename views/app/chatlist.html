@@ -10,6 +10,7 @@
 
         <div class="list cdetail-list">
             <div class="chatlist">
+                <p class="txt-center" ng-if="chatParticipants.length==0">Please book a chat to get started</p>
                 <a class="item item-icon-left item-icon-right {{cp[0].chat_id}}" ui-sref="app.chat({'id': cp[0].chat_id})" ng-repeat="cp in chatParticipants" ui-sref-opts="{reload: true}">
                     <i class="icon ion-ionic"></i>
                     <span class="title">{{participant[$index][0].fname}}</span>
