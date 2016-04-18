@@ -1606,16 +1606,16 @@ angular.module('your_app_name.controllers', ['ionic', 'ngCordova'])
                 if ($scope.counter1 == 0) {
                     //console.log('fadsf af daf');
                     $timeout.cancel(stopped1);
-                    $scope.kookooID = window.localStorage.getItem('kookooid');
+                    $scope.kookooID = window.localStorage.getItem('kookooid1');
                     $scope.prodid = window.localStorage.getItem('prodId');
                     $http({
                         method: 'GET',
                         url: domain + 'kookoo/payment-time-expired',
                         params: {kookooid: $scope.kookooID}
-
                     }).then(function successCallback(responseData) {
                         alert('Sorry, Your payment time expired');
                         window.localStorage.removeItem('kookooid');
+                        window.localStorage.removeItem('kookooid1');
                         $timeout(function () {
                             // $state.go('app.consultation-profile', {'id':$scope.product[0].user_id}, {reload: true});
                             $state.go('app.consultations-list', {reload: true});
@@ -1700,6 +1700,7 @@ angular.module('your_app_name.controllers', ['ionic', 'ngCordova'])
                     window.localStorage.removeItem('coupondiscount');
                     window.localStorage.setItem('coupondiscount', '')
                     console.log(response.data);
+                    $timeout.cancel(stopped1);
                     if (finalamount > 0) {
                         $state.go('app.Gopay', {'link': response.data});
                         console.log(response.data);
@@ -1783,6 +1784,7 @@ angular.module('your_app_name.controllers', ['ionic', 'ngCordova'])
                 window.localStorage.removeItem('supid');
                 window.localStorage.removeItem('mode');
                 window.localStorage.removeItem('kookooid');
+                window.localStorage.removeItem('kookooid1');
                 window.localStorage.removeItem('coupondiscount');
                 window.localStorage.removeItem('IVendSlot');
                 window.localStorage.removeItem('IVstartSlot');
