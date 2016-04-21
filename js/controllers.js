@@ -1322,12 +1322,12 @@ angular.module('your_app_name.controllers', ['ionic', 'ngCordova'])
                 $scope.clinic_products_past = response.data.clinic_products_past;
                 $scope.clinic_time_past = response.data.clinic_time_past;
                 $scope.clinic_end_time = response.data.clinic_end_time;
-                
+
                 //Home
                 $scope.home_app = response.data.home_app;
                 $scope.home_doctorsData = response.data.home_doctorsData;
                 $scope.home_products = response.data.home_products;
-                
+
                 //Chat 
                 $scope.chat_app = response.data.chat_app;
                 $scope.chat_doctorsData = response.data.chat_doctorsData;
@@ -2694,7 +2694,7 @@ angular.module('your_app_name.controllers', ['ionic', 'ngCordova'])
                 }
             };
         })
-        .controller('RescheduleAppointmentCtrl', function ($scope, $http, $stateParams, $ionicLoading, $rootScope, $ionicHistory, $filter, $state) {
+        .controller('RescheduleAppointmentCtrl', function ($scope, $http, $ionicModal, $stateParams, $ionicLoading, $rootScope, $ionicHistory, $filter, $state) {
             $scope.pSch = [];
             $scope.schP = [];
             $scope.schdate = [];
@@ -2744,7 +2744,7 @@ angular.module('your_app_name.controllers', ['ionic', 'ngCordova'])
             });
             $scope.getNextSlots = function (nextDate, supsassId, key, serv) {
                 console.log(nextDate + '=======' + supsassId + '=====' + key);
-                var from = $filter('date')(new Date(nextDate), 'yyyy-MM-dd HH:mm:ss');
+                var from = $filter('date')(new Date(nextDate), 'yyyy-MM-dd') + '+05:30:00';  // HH:mm:ss
                 $ionicLoading.show({template: 'Loading...'});
                 $http({
                     method: 'GET',
@@ -2800,6 +2800,16 @@ angular.module('your_app_name.controllers', ['ionic', 'ngCordova'])
                     console.log(response);
                 });
             };
+            /* view more doctor profile modalbox*/
+            $ionicModal.fromTemplateUrl('viewmoreprofile.html', {
+                scope: $scope
+            }).then(function (modal) {
+                $scope.modal = modal;
+            });
+            $scope.submitmodal = function () {
+                $scope.modal.hide();
+            };
+            /* end profile */
             $scope.bookSlot = function (starttime, endtime, supid) {
                 console.log(starttime + '===' + endtime + '=========' + supid);
                 $scope.bookingStart = starttime;
@@ -2842,4 +2852,5 @@ angular.module('your_app_name.controllers', ['ionic', 'ngCordova'])
                 });
                 $state.go('app.consultations-list', {}, {reload: true});
             };
-        });
+        })
+        ;
