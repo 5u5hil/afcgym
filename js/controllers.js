@@ -1153,7 +1153,6 @@ angular.module('your_app_name.controllers', ['ionic', 'ngCordova'])
                 $scope.video_doctorsData_past = response.data.video_doctorsData_past;
                 $scope.video_products_past = response.data.video_products_past;
                 $scope.video_end_time_past = response.data.video_end_time_past;
-                //console.log('##########'+ $scope.video_app_past);
                 //Clinic
                 $scope.clinic_app = response.data.clinic_app;
                 $scope.clinic_doctorsData = response.data.clinic_doctorsData;
@@ -1166,10 +1165,12 @@ angular.module('your_app_name.controllers', ['ionic', 'ngCordova'])
                 $scope.clinic_products_past = response.data.clinic_products_past;
                 $scope.clinic_time_past = response.data.clinic_time_past;
                 $scope.clinic_end_time = response.data.clinic_end_time;
+                
                 //Home
                 $scope.home_app = response.data.home_app;
                 $scope.home_doctorsData = response.data.home_doctorsData;
                 $scope.home_products = response.data.home_products;
+                
                 //Chat 
                 $scope.chat_app = response.data.chat_app;
                 $scope.chat_doctorsData = response.data.chat_doctorsData;
@@ -1676,6 +1677,8 @@ angular.module('your_app_name.controllers', ['ionic', 'ngCordova'])
                 });
             };
             $scope.payNow = function (finalamount) {
+                //Stop timer
+                $timeout.cancel(stopped1);
                 $scope.interface = window.localStorage.getItem('interface_id');
                 if (window.localStorage.getItem('instantV') == 'instantV') {
                     $scope.startSlot = window.localStorage.getItem('IVstartSlot');
@@ -1700,7 +1703,7 @@ angular.module('your_app_name.controllers', ['ionic', 'ngCordova'])
                     window.localStorage.removeItem('coupondiscount');
                     window.localStorage.setItem('coupondiscount', '')
                     console.log(response.data);
-                    $timeout.cancel(stopped1);
+                    //$timeout.cancel(stopped1);
                     if (finalamount > 0) {
                         $state.go('app.Gopay', {'link': response.data});
                         console.log(response.data);
@@ -1709,7 +1712,7 @@ angular.module('your_app_name.controllers', ['ionic', 'ngCordova'])
                         $ionicHistory.nextViewOptions({
                             disableBack: true
                         });
-                        $timeout.cancel(stopped1);
+                        //$timeout.cancel(stopped1);
                         $state.go('app.thankyou', {'data': response.data}, {reload: true});
                     }
                 }, function errorCallback(response) {
